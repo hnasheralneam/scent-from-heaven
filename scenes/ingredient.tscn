@@ -1,0 +1,64 @@
+[gd_scene load_steps=7 format=3 uid="uid://dn47epawpdoij"]
+
+[ext_resource type="Texture2D" uid="uid://oquvasg7tl3r" path="res://assets/water.png" id="1_c6eef"]
+[ext_resource type="Script" path="res://scripts/ingredient.gd" id="1_wiun1"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_46vjm"]
+radius = 6.0
+height = 18.0
+
+[sub_resource type="Animation" id="Animation_qrx1r"]
+resource_name = "bob"
+length = 2.0
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 2), Vector2(0, 0), Vector2(0, -3)]
+}
+
+[sub_resource type="Animation" id="Animation_2nxad"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_uhg4y"]
+_data = {
+"RESET": SubResource("Animation_2nxad"),
+"bob": SubResource("Animation_qrx1r")
+}
+
+[node name="Ingredient" type="Area2D"]
+collision_mask = 2
+script = ExtResource("1_wiun1")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_c6eef")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_46vjm")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_uhg4y")
+}
+autoplay = "bob"
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
