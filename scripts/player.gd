@@ -16,6 +16,12 @@ func _physics_process(delta):
 	# Handle jump.
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
+		
+	if Input.is_action_pressed("ui_right"):
+		PlayerPosition.direction = 1
+	if Input.is_action_pressed("ui_left"):
+		PlayerPosition.direction = -1
+
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
@@ -26,3 +32,6 @@ func _physics_process(delta):
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 
 	move_and_slide()
+
+	print("player at (relative to origin) " + str(self.global_position))
+	PlayerPosition.set_position(position)
