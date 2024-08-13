@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://dxwe7qenprbvh"]
+[gd_scene load_steps=2 format=3 uid="uid://cpl27muhcfhga"]
 
 [sub_resource type="TileSet" id="TileSet_q4lmk"]
 physics_layer_0/collision_layer = 1
